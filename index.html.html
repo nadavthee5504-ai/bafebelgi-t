@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>וופל בלגי על מקל | הזמנה</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --waffle-color: #ff9f47;
+            --waffle-bg: #fff4e4;
+            --main-font: 'Heebo', sans-serif;
+        }
+
+        body { 
+            font-family: var(--main-font);
+            background: #ffe9d1;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        .box {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin: 20px 0 10px;
+            color: #4a2c1b;
+        }
+
+        .price {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 10px; /* צמצום המרווח כדי לפנות מקום לקישור הטלפוני */
+            color: #884a22;
+        }
+        
+        /* עיצוב הקישור הטלפוני */
+        .phone-link-container {
+            text-align: center; 
+            margin-bottom: 20px;
+        }
+        .phone-link {
+            color: #4a2c1b; 
+            font-weight: bold; 
+            text-decoration: none; 
+            border: 1px solid #ff9f47; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            background-color: #fff3e6; /* רקע בהיר לכפתור */
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+        .phone-link:hover {
+            background-color: #ff9f47;
+            color: white;
+        }
+        /* סוף עיצוב הקישור הטלפוני */
+
+
+        label { font-weight: 500; margin-top: 15px; display: block; color: #333; }
+
+        input:not([type="radio"]):not([type="checkbox"]), textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: var(--waffle-color);
+            outline: none;
+        }
+
+        input[type="time"] { 
+            max-width: 150px;
+        }
+
+        .waffle-box {
+            background: var(--waffle-bg);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #ff9f4730;
+        }
+        
+        .waffle-box input[type="checkbox"] { display: none; }
+
+        .waffle-box input[type="checkbox"] + label {
+            background-color: #f7f7f7;
+            padding: 7px 12px;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            margin-left: 5px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .waffle-box input[type="checkbox"]:checked + label {
+            background-color: var(--waffle-color);
+            color: white;
+            border-color: var(--waffle-color);
+            box-shadow: 0 2px 4px #0003;
+            transform: scale(1.03);
+        }
+
+        .topping-group {
+            margin-top: 12px;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+        
+        .btn {
+            width: 100%;
+            background: var(--waffle-color);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border: none;
+            margin-top: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(255, 159, 71, 0.4);
+            transition: background 0.2s, transform 0.1s;
+        }
+        
+        .btn:hover:not(:disabled) {
+            background: #e08e40;
+            box-shadow: 0 6px 8px rgba(255, 159, 71, 0.5);
+        }
+
+        .btn:active:not(:disabled) {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(255, 159, 71, 0.5);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .payment-info {
+            background: #fff3c4;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+            font-weight: 700;
+            color: #d67a00;
+            border-left: 5px solid var(--waffle-color);
+        }
+        
+        .required-star {
+            color: red;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        
+        .payment-upload-info {
+            background-color: #fcebeb;
+            color: #c90000;
+            border: 1px solid #c90000;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .error-border {
+            border: 2px solid red !important;
+        }
+        .error-text {
+            color: red;
+            font-size: 12px;
+            margin-top: -5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+    <div class="title">וופל בלגי על מקל 🧇</div>
+    <div class="price">מחיר: 7 ש"ח לוופל</div>
+    
+    <div class="phone-link-container">
+        <a href="tel:972553085504" class="phone-link">
+            📞 התקשרו אלינו: 055-3085504
+        </a>
+    </div>
+    <label for="name">שם מלא: <span class="required-star">*</span></label>
+    <input id="name" required>
+    <div id="error-name" class="error-text">שדה חובה</div>
+
+    <label for="phone">טלפון: <span class="required-star">*</span></label>
+    <input id="phone" type="tel" required> 
+    <div id="error-phone" class="error-text">שדה חובה</div>
+    
+    <label for="time">שעה רצויה לאיסוף (16:00-20:00): <span class="required-star">*</span></label>
+    <input id="time" type="time" min="16:00" max="20:00" required>
+    <div id="error-time" class="error-text">נא לבחור שעה בתחום 16:00 עד 20:00</div>
+
+
+    <label for="qty">כמות וופלים:</label>
+    <input id="qty" type="number" min="1" max="10" value="1">
+
+    <div id="total" style="margin-top:10px; font-weight:bold; font-size: 18px;">
+        סה"כ: 7 ש"ח
+    </div>
+
+    <div id="waffles"></div>
+
+    <label>אמצעי תשלום: <span class="required-star">*</span></label>
+    <div id="payment-options">
+        <input type="radio" name="pay" value="ביט" id="pay_bit"><label for="pay_bit"> ביט</label><br>
+        <input type="radio" name="pay" value="פייבוקס" id="pay_fb"><label for="pay_fb"> פייבוקס</label><br>
+        <input type="radio" name="pay" value="מזומן" id="pay_cash"><label for="pay_cash"> מזומן</label><br>
+    </div>
+    <div id="error-pay" class="error-text">נא לבחור אמצעי תשלום</div>
+
+
+    <div id="paymentInfo" class="payment-info"></div>
+    
+    <div id="paymentUploadInfo" class="payment-upload-info">
+        **חשוב:** לאחר שליחת ההודעה, אנא חזור לשיחה וצרף את תמונת אישור התשלום (קבלה/צילום מסך) לוואטסאפ.
+    </div>
+
+    <label for="notes">הערות:</label>
+    <textarea id="notes" placeholder="כאן ניתן להוסיף הערות כלליות להזמנה..."></textarea>
+
+    <button id="sendBtn" class="btn" onclick="sendUnifiedOrder()">שליחת הזמנה לוואטסאפ</button>
+    <button class="btn" style="background: #ccc; margin-top: 10px;" onclick="resetForm()">איפוס טופס</button>
+
+</div>
+
+<script>
+const PRICE = 7;
+const MY_PHONE_NUMBER = "972553085504"; // מספר היעד בוואטסאפ
+
+function updateWaffles() {
+    const qtyInput = document.getElementById("qty");
+    let qty = Number(qtyInput.value);
+
+    if (qty < 1 || isNaN(qty)) {
+        qty = 1;
+        qtyInput.value = 1;
+    }
+    if (qty > 10) {
+        qty = 10;
+        qtyInput.value = 10;
+    }
+    
+    document.getElementById("total").innerText = "סה\"כ: " + (qty * PRICE) + " ש\"ח";
+
+    let html = "";
+    for (let i = 1; i <= qty; i++) {
+        html += `
+            <div class="waffle-box">
+                <b>🧇 וופל #${i}</b>
+                <div class="topping-group">
+                    <label>רטבים:</label>
+                    <input type="checkbox" id="sauce_choc_${i}" name="sauce_${i}" value="סירופ שוקולד"><label for="sauce_choc_${i}">סירופ שוקולד</label>
+                    <input type="checkbox" id="sauce_maple_${i}" name="sauce_${i}" value="מייפל"><label for="sauce_maple_${i}">מייפל</label>
+                    <input type="checkbox" id="sauce_milk_${i}" name="sauce_${i}" value="ריבת חלב"><label for="sauce_milk_${i}">ריבת חלב</label>
+                </div>
+                <div class="topping-group">
+                    <label>תוספות (קראנצ'):</label>
+                    <input type="checkbox" id="top_oreo_${i}" name="top_${i}" value="אוראו"><label for="top_oreo_${i}">אוראו</label>
+                    <input type="checkbox" id="top_lotus_${i}" name="top_${i}" value="לוטוס"><label for="top_lotus_${i}">לוטוס</label>
+                    <input type="checkbox" id="top_click_${i}" name="top_${i}" value="קליק"><label for="top_click_${i}">קליק</label>
+                    <input type="checkbox" id="top_lentils_${i}" name="top_${i}" value="עדשים"><label for="top_lentils_${i}">עדשים</label>
+                </div>
+                <div class="topping-group">
+                    <label>מעל (פיניש):</label>
+                    <input type="checkbox" id="extra_cream_${i}" name="extra_${i}" value="קצפת"><label for="extra_cream_${i}">קצפת</label>
+                    <input type="checkbox" id="extra_sug_${i}" name="extra_${i}" value="סוכריות"><label for="extra_sug_${i}">סוכריות</label>
+                </div>
+            </div>
+        `;
+    }
+    document.getElementById("waffles").innerHTML = html;
+}
+
+document.getElementById("qty").addEventListener("input", updateWaffles);
+document.addEventListener("DOMContentLoaded", updateWaffles);
+
+
+function resetForm() {
+    if (confirm("האם אתה בטוח שברצונך לאפס את כל פרטי הטופס?")) {
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("time").value = "";
+        document.getElementById("qty").value = 1;
+        document.getElementById("notes").value = "";
+
+        document.querySelectorAll('input[name="pay"]').forEach(radio => radio.checked = false);
+        
+        document.getElementById("paymentInfo").style.display = "none";
+        document.getElementById("paymentUploadInfo").style.display = "none";
+        
+        document.querySelectorAll('.error-text').forEach(el => el.style.display = "none");
+        document.querySelectorAll('input, textarea, #payment-options').forEach(el => el.classList.remove("error-border"));
+
+        updateWaffles();
+    }
+}
+
+function validateField(id, errorTextId, validationFn, errorMessage) {
+    const input = document.getElementById(id);
+    const errorEl = document.getElementById(errorTextId);
+    let isValid = validationFn(input.value);
+
+    if (!isValid) {
+        input.classList.add("error-border");
+        errorEl.innerText = errorMessage;
+        errorEl.style.display = "block";
+    } else {
+        input.classList.remove("error-border");
+        errorEl.style.display = "none";
+    }
+    return isValid;
+}
+
+
+function sendUnifiedOrder() {
+    const sendBtn = document.getElementById('sendBtn');
+    
+    if (sendBtn.disabled) {
+        return;
+    }
+    
+    // --- וולידציה ---
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const time = document.getElementById("time").value.trim();
+    const pay = document.querySelector('input[name="pay"]:checked');
+
+    let isFormValid = true;
+
+    if (!validateField("name", "error-name", v => v.length > 0, "נא למלא את השם.")) isFormValid = false;
+    if (!validateField("phone", "error-phone", v => v.length > 0, "נא למלא את הטלפון.")) isFormValid = false;
+    
+    const isTimeValid = time && time >= "16:00" && time <= "20:00";
+    if (!validateField("time", "error-time", () => isTimeValid, "נא לבחור שעה בתחום 16:00 עד 20:00.")) isFormValid = false;
+
+    const errorPayEl = document.getElementById("error-pay");
+    const paymentOptionsEl = document.getElementById("payment-options");
+
+    if (!pay) {
+        paymentOptionsEl.classList.add("error-border");
+        errorPayEl.style.display = "block";
+        isFormValid = false;
+    } else {
+        paymentOptionsEl.classList.remove("error-border");
+        errorPayEl.style.display = "none";
+    }
+
+    if (!isFormValid) {
+        alert("נא לתקן את השדות המסומנים באדום לפני השליחה.");
+        return;
+    }
+
+    // --- מניעת שליחה כפולה ---
+    sendBtn.disabled = true; 
+    sendBtn.innerText = "שולח הזמנה, נא להמתין...";
+
+    // --- נתוני הזמנה ---
+    const qty = Number(document.getElementById("qty").value);
+    const notes = document.getElementById("notes").value;
+    const totalPrice = qty * PRICE;
+
+
+    // 1. יצירת הודעת האישור שאתה שולח ללקוח (נוסח העתק/הדבק)
+    const confirmationMsgForCopy = `
+*--- ✂️ התחל העתקה לכאן ✂️ ---*
+שלום ${name}, תודה רבה על הזמנתך! 🙏
+
+קיבלנו את ההזמנה שלך לוופל בלגי על מקל:
+*מספר פריטים:* ${qty} וופלים
+*סה"כ לתשלום:* ${totalPrice} ש"ח
+*שעת איסוף רצויה:* ${time} ⏰
+*אמצעי תשלום:* ${pay.value}
+
+נשתדל להכין את ההזמנה בדיוק בשעה שציינת.
+נא לא לשכוח לצרף אישור תשלום (אם שילמת בביט/פייבוקס).
+מחכים לך! 😊
+*--- 🛑 סיים העתקה לכאן 🛑 ---*
+`;
+
+
+    // 2. יצירת הודעת ההזמנה שנשלחת אליך (העסק)
+    let orderMsg = `🔔 *הזמנה חדשה (וופל בלגי)* 🔔
+==============================
+*פרטי לקוח:*
+👤 *שם*: ${name}
+📞 *טלפון*: ${phone}
+⏰ *שעה רצויה לאיסוף*: ${time}
+💰 *סה"כ לתשלום*: ${totalPrice} ש"ח
+💵 *אמצעי תשלום*: ${pay.value}
+==============================
+*פירוט ההזמנה:*
+`;
+
+    for (let i = 1; i <= qty; i++) {
+        const sauces = [...document.querySelectorAll(`input[name="sauce_${i}"]:checked`)]
+                        .map(x => x.value).join(", ") || "ללא רטבים";
+        const tops = [...document.querySelectorAll(`input[name="top_${i}"]:checked`)]
+                        .map(x => x.value).join(", ") || "ללא תוספות";
+        const extras = [...document.querySelectorAll(`input[name="extra_${i}"]:checked`)]
+                        .map(x => x.value).join(", ") || "ללא פיניש";
+
+        orderMsg += `
+*וופל #${i}*:
+🍫 רטבים: ${sauces}
+🍬 תוספות: ${tops}
+✨ מעל: ${extras}
+`;
+    }
+    
+    if (notes) orderMsg += `\n📝 *הערות כלליות*: ${notes}`;
+    
+    orderMsg += `
+==============================
+${pay.value !== "מזומן" ? '🔴 *הערה לתשלום:* הלקוח מתבקש לצרף אישור תשלום מיד.' : ''}
+${confirmationMsgForCopy}
+`;
+
+
+    // 3. פתיחת החלון
+    const orderUrl = "https://wa.me/" + MY_PHONE_NUMBER + "?text=" + encodeURIComponent(orderMsg);
+    window.open(orderUrl, "_blank");
+    
+    // איפוס הכפתור וניקוי הטופס לאחר שליחה
+    setTimeout(() => {
+        sendBtn.disabled = false;
+        sendBtn.innerText = "שליחת הזמנה לוואטסאפ";
+        resetForm(); 
+    }, 1500);
+}
+
+// הצגת מספרי תשלום
+document.querySelectorAll('input[name="pay"]').forEach(r => {
+    r.addEventListener("change", () => {
+        // [.. קוד להצגת פרטי תשלום ..]
+        const val = r.value;
+        let txt = "";
+        const uploadBox = document.getElementById("paymentUploadInfo");
+
+        if (val === "ביט") {
+            txt = "📲 מספר לתשלום בביט: 050-6205953";
+            uploadBox.style.display = "block";
+        } else if (val === "פייבוקס") {
+            txt = "📲 מספר לתשלום בפייבוקס: 054-2296540";
+            uploadBox.style.display = "block";
+        } else if (val === "מזומן") {
+            txt = "💵 תשלום אצל משפחת טי (באיסוף)";
+            uploadBox.style.display = "none";
+        }
+
+        const infoBox = document.getElementById("paymentInfo");
+        infoBox.innerText = txt;
+        infoBox.style.display = "block";
+    });
+});
+</script>
+
+</body>
+</html>
