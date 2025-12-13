@@ -5,6 +5,7 @@
   <title>וופל בלגי על מקל | הזמנה</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --waffle-color:#ff9f47;
@@ -13,68 +14,218 @@
       --dark-brown:#4a2c1b;
     }
 
-    body{font-family:var(--main-font);background:#ffe9d1;margin:0;padding:0;direction:rtl;}
-    .box{max-width:600px;margin:20px auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.1);}
-    .title{font-size:36px;font-weight:700;text-align:center;margin:20px 0 10px;color:#4a2c1b;}
-    .price{text-align:center;font-size:20px;margin-bottom:15px;color:#884a22;}
+    body{
+      font-family:var(--main-font);
+      background:#ffe9d1;
+      margin:0;
+      padding:0;
+      direction:rtl;
+    }
+
+    .box{
+      max-width:600px;
+      margin:20px auto;
+      background:#fff;
+      padding:30px;
+      border-radius:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,.1);
+    }
+
+    .title{
+      font-size:36px;
+      font-weight:700;
+      text-align:center;
+      margin:20px 0 10px;
+      color:var(--dark-brown);
+    }
+
+    .price{
+      text-align:center;
+      font-size:20px;
+      margin-bottom:15px;
+      color:#884a22;
+    }
 
     .phone-link-container{text-align:center;margin-bottom:25px;}
     .phone-link{
-      color:#4a2c1b;font-weight:700;text-decoration:none;border:1px solid #ff9f47;
-      padding:8px 15px;border-radius:8px;background:#fff3e6;display:inline-block;transition:.2s;
+      color:var(--dark-brown);
+      font-weight:700;
+      text-decoration:none;
+      border:1px solid var(--waffle-color);
+      padding:8px 15px;
+      border-radius:8px;
+      background:#fff3e6;
+      display:inline-block;
+      transition:.2s;
     }
     .phone-link:hover{background:var(--waffle-color);color:#fff;}
 
     label{font-weight:700;margin-top:20px;display:block;color:#333;}
     input:not([type="radio"]):not([type="checkbox"]), textarea{
-      width:100%;padding:12px;margin-top:5px;border-radius:8px;border:1px solid #ddd;box-sizing:border-box;
+      width:100%;
+      padding:12px;
+      margin-top:5px;
+      border-radius:8px;
+      border:1px solid #ddd;
+      box-sizing:border-box;
+      transition:border-color .3s;
+    }
+    input:focus, textarea:focus{
+      border-color:var(--waffle-color);
+      outline:none;
     }
     input[type="time"]{max-width:150px;}
 
-    .waffle-box{background:var(--waffle-bg);padding:18px;border-radius:12px;margin-top:20px;border:1px solid #ff9f4730;}
-    .waffle-box b{font-size:18px;color:#4a2c1b;display:block;margin-bottom:5px;}
+    .waffle-box{
+      background:var(--waffle-bg);
+      padding:18px;
+      border-radius:12px;
+      margin-top:20px;
+      border:1px solid #ff9f4730;
+    }
+    .waffle-box b{
+      font-size:18px;
+      color:var(--dark-brown);
+      display:block;
+      margin-bottom:5px;
+    }
 
     .waffle-box input[type="checkbox"]{display:none;}
     .waffle-box input[type="checkbox"] + label{
-      background:#f7f7f7;padding:8px 15px;border-radius:20px;border:1px solid #ddd;
-      display:inline-block;margin-left:5px;margin-bottom:10px;cursor:pointer;transition:.2s;font-size:15px;font-weight:500;
+      background:#f7f7f7;
+      padding:8px 15px;
+      border-radius:20px;
+      border:1px solid #ddd;
+      display:inline-block;
+      margin-left:5px;
+      margin-bottom:10px;
+      cursor:pointer;
+      transition:.2s;
+      font-size:15px;
+      font-weight:500;
     }
     .waffle-box input[type="checkbox"]:checked + label{
-      background:var(--waffle-color);color:#fff;border-color:var(--waffle-color);
-      box-shadow:0 2px 4px #0003;transform:scale(1.05);
+      background:var(--waffle-color);
+      color:#fff;
+      border-color:var(--waffle-color);
+      box-shadow:0 2px 4px #0003;
+      transform:scale(1.05);
     }
 
-    .topping-group{margin:15px 0;font-weight:400;border-top:1px dashed #ff9f4760;padding-top:10px;}
+    .topping-group{
+      margin:15px 0;
+      font-weight:400;
+      border-top:1px dashed #ff9f4760;
+      padding-top:10px;
+    }
     .topping-group:first-child{border-top:none;padding-top:0;}
 
     .payment-selection-group{margin-top:10px;}
     .payment-selection-group input[type="radio"]{display:none;}
     .payment-selection-group input[type="radio"] + label{
-      background:#f7f7f7;padding:10px 18px;border-radius:25px;border:1px solid #ddd;
-      display:inline-block;margin-left:10px;margin-bottom:10px;cursor:pointer;transition:.2s;font-size:16px;font-weight:500;
+      background:#f7f7f7;
+      padding:10px 18px;
+      border-radius:25px;
+      border:1px solid #ddd;
+      display:inline-block;
+      margin-left:10px;
+      margin-bottom:10px;
+      cursor:pointer;
+      transition:.2s;
+      font-size:16px;
+      font-weight:500;
     }
     .payment-selection-group input[type="radio"]:checked + label{
-      background:var(--waffle-color);color:#fff;border-color:var(--waffle-color);box-shadow:0 2px 4px #0003;transform:scale(1.05);
+      background:var(--waffle-color);
+      color:#fff;
+      border-color:var(--waffle-color);
+      box-shadow:0 2px 4px #0003;
+      transform:scale(1.05);
     }
 
     .btn{
-      width:100%;background:var(--waffle-color);padding:16px;border-radius:10px;color:#fff;font-weight:700;font-size:19px;
-      border:none;margin-top:30px;cursor:pointer;box-shadow:0 4px 6px rgba(255,159,71,.4);transition:.2s;
+      width:100%;
+      background:var(--waffle-color);
+      padding:16px;
+      border-radius:10px;
+      color:#fff;
+      font-weight:700;
+      font-size:19px;
+      border:none;
+      margin-top:30px;
+      cursor:pointer;
+      box-shadow:0 4px 6px rgba(255,159,71,.4);
+      transition:.2s;
     }
-    .btn.secondary{background:#ccc;margin-top:10px;color:#222;box-shadow:none;}
-    .btn.pay{margin-top:10px;font-size:16px;padding:12px;}
+    .btn.secondary{
+      background:#ccc;
+      margin-top:10px;
+      color:#222;
+      box-shadow:none;
+    }
+
+    .btn.pay{
+      margin-top:10px;
+      font-size:16px;
+      padding:12px;
+      font-weight:700;
+    }
     .btn.pay.bit{background:#2b5cff;}
     .btn.pay.paybox{background:#00bfa5;}
 
     .total-display{
-      margin-top:15px;font-weight:700;font-size:22px;padding:10px;border-radius:8px;background:#fff3e6;
-      color:#4a2c1b;text-align:center;
+      margin-top:15px;
+      font-weight:700;
+      font-size:22px;
+      padding:10px;
+      border-radius:8px;
+      background:#fff3e6;
+      color:var(--dark-brown);
+      text-align:center;
     }
 
     .payment-section-hidden{display:none !important;}
+
+    /* ✅ תיקון עיצוב: הבלוק עצמו לא FLEX. רק השורה בפנים */
     .payment-info{
-      background:#fff3c4;padding:12px;border-radius:10px;margin-top:10px;display:none;font-weight:700;color:#d67a00;
+      background:#fff3c4;
+      padding:12px;
+      border-radius:10px;
+      margin-top:10px;
+      display:none;            /* נשאר מוסתר עד בחירה */
+      font-weight:700;
+      color:#d67a00;
       border-left:5px solid var(--waffle-color);
+    }
+    .payment-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .payment-text{
+      flex:1;
+      min-width:180px;
+    }
+
+    .copy-btn{
+      background:#f0f0f0;
+      border:1px solid #ccc;
+      color:#333;
+      padding:7px 12px;
+      border-radius:8px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.1s;
+      flex-shrink:0;
+    }
+    .copy-btn:hover{background:#e1e1e1;}
+    .copy-btn.copied{
+      background:#4CAF50;
+      border-color:#4CAF50;
+      color:#fff;
     }
 
     .required-star{color:red;font-size:14px;margin-right:5px;}
@@ -82,10 +233,23 @@
     .error-text{color:red;font-size:12px;margin-top:-5px;display:none;}
 
     .receipt-box{
-      display:none;margin-top:12px;background:#eafff0;border:1px solid #b8f3cc;padding:10px;border-radius:10px;font-weight:700;text-align:center;
+      display:none;
+      margin-top:12px;
+      background:#eafff0;
+      border:1px solid #b8f3cc;
+      padding:10px;
+      border-radius:10px;
+      font-weight:700;
+      text-align:center;
     }
     .receipt-box a{
-      display:inline-block;margin-top:8px;background:#25D366;color:#fff;padding:10px 12px;border-radius:10px;text-decoration:none;
+      display:inline-block;
+      margin-top:8px;
+      background:#25D366;
+      color:#fff;
+      padding:10px 12px;
+      border-radius:10px;
+      text-decoration:none;
     }
 
     .site-note{
@@ -94,13 +258,13 @@
       border-top:2px dashed #ff9f4760;
       text-align:center;
       font-weight:700;
-      color:#4a2c1b;
+      color:var(--dark-brown);
       font-size:15px;
     }
   </style>
 </head>
-<body>
 
+<body>
 <div class="box">
   <div class="title">וופל בלגי על מקל 🧇</div>
   <div class="price">מחיר בסיס: 7 ש"ח לוופל</div>
@@ -142,10 +306,9 @@
 
     <div id="paymentInfo" class="payment-info"></div>
 
-    <!-- כפתור פתיחה לתשלום (משתנה לפי בחירה) -->
     <button id="openPayBtn" class="btn pay" style="display:none;" type="button">פתח לתשלום</button>
 
-    <div id="paymentUploadInfo" style="display:none;margin-top:10px;font-weight:700;color:#4a2c1b;">
+    <div id="paymentUploadInfo" style="display:none;margin-top:10px;font-weight:700;color:var(--dark-brown);">
       חשוב: אחרי התשלום, חזור לשיחה וצרף צילום מסך/קבלה בווטסאפ.
     </div>
   </div>
@@ -162,7 +325,6 @@
     <a id="receiptLink" href="#" target="_blank">שלח קבלה ללקוח</a>
   </div>
 
-  <!-- הכוכבית באתר (לא בהודעת ווטסאפ) -->
   <div class="site-note">
     ⭐ כדי שההזמנה תיקלט – חייבים לסיים את השליחה בווטסאפ (ללחוץ על “שלח”)
   </div>
@@ -170,11 +332,7 @@
 
 <script>
 const PRICE = 7;
-
-// מספר הוואטסאפ של מי שמרכז את ההזמנות
 const MY_PHONE_NUMBER = "972542296540";
-
-// מספרים לתשלום
 const BIT_NUMBER = "0506205953";
 const PAYBOX_NUMBER = "0542296540";
 
@@ -201,14 +359,31 @@ function waLink(phoneNumber, text) {
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
 }
 
-/* ניסיון לפתוח אפליקציות תשלום (אם קיים בטלפון) */
 function openBitPayment(){ window.location.href = "bit://"; }
 function openPayBoxPayment(){ window.location.href = "paybox://"; }
+
+async function copyToClipboard(textToCopy, btnElement) {
+  try {
+    await navigator.clipboard.writeText(textToCopy);
+    const original = btnElement.innerText;
+    btnElement.innerText = "✅ הועתק!";
+    btnElement.classList.add('copied');
+    setTimeout(() => {
+      btnElement.innerText = original;
+      btnElement.classList.remove('copied');
+    }, 1400);
+  } catch (err) {
+    alert("העתקה נכשלה. אנא העתק ידנית: " + textToCopy);
+  }
+}
 
 function updateWaffles() {
   const qtyInput = document.getElementById("qty");
   let qty = Number(qtyInput.value);
   const paymentSection = document.getElementById("payment-section");
+  const paymentInfo = document.getElementById("paymentInfo");
+  const openBtn = document.getElementById("openPayBtn");
+  const uploadBox = document.getElementById("paymentUploadInfo");
 
   if (qty < 0 || isNaN(qty)) { qty = 0; qtyInput.value = 0; }
 
@@ -218,10 +393,11 @@ function updateWaffles() {
     paymentSection.classList.remove("payment-section-hidden");
   } else {
     paymentSection.classList.add("payment-section-hidden");
-    document.getElementById("paymentInfo").style.display = "none";
-    document.getElementById("paymentUploadInfo").style.display = "none";
-    document.getElementById("openPayBtn").style.display = "none";
-    document.querySelectorAll('input[name="pay"]').forEach(r => r.checked = false);
+    paymentInfo.style.display = "none";
+    paymentInfo.innerHTML = "";
+    uploadBox.style.display = "none";
+    openBtn.style.display = "none";
+    document.querySelectorAll('input[name="pay"]').forEach(radio => radio.checked = false);
   }
 
   let html = "";
@@ -270,6 +446,7 @@ function resetForm() {
     document.querySelectorAll('input[name="pay"]').forEach(r => r.checked = false);
 
     document.getElementById("paymentInfo").style.display = "none";
+    document.getElementById("paymentInfo").innerHTML = "";
     document.getElementById("paymentUploadInfo").style.display = "none";
     document.getElementById("openPayBtn").style.display = "none";
     document.getElementById("receiptBox").style.display = "none";
@@ -327,7 +504,6 @@ function sendUnifiedOrder() {
 
   const errorPayEl = document.getElementById("error-pay");
   const paymentOptionsEl = document.getElementById("payment-options");
-
   if (qty > 0 && !pay) {
     paymentOptionsEl.classList.add("error-border");
     errorPayEl.style.display = "block";
@@ -374,6 +550,7 @@ function sendUnifiedOrder() {
     });
   }
 
+  // ✅ הודעה למרכז ההזמנות (בלי "סיכום למטבח" ובלי בלוק העתקה)
   let orderMsg =
     `[ORDER_ID: ${orderDetails.orderId}]\n` +
     `*🔔 הזמנה חדשה (וופל בלגי) 🔔*\n` +
@@ -411,7 +588,6 @@ function sendUnifiedOrder() {
 
   // קבלה ללקוח
   const customerWa = toWaNumber(orderDetails.customerPhone);
-
   let receiptMsg =
     `✅ קבלה - וופל בלגי על מקל\n\n` +
     `*קוד הזמנה*: ${orderDetails.orderId}\n` +
@@ -440,45 +616,58 @@ function sendUnifiedOrder() {
   }, 1200);
 }
 
-// הצגת מספרי תשלום + כפתור “פתח לתשלום”
+// ✅ תשלום + פתיחה + העתקה (בלי לשבור עיצוב)
 document.querySelectorAll('input[name="pay"]').forEach(r => {
   r.addEventListener("change", () => {
     const val = r.value;
+
     const infoBox = document.getElementById("paymentInfo");
     const uploadBox = document.getElementById("paymentUploadInfo");
     const openBtn = document.getElementById("openPayBtn");
 
-    let txt = "";
-
     if (val === "ביט") {
-      txt = `📲 מספר לתשלום בביט: ${BIT_NUMBER.slice(0,3)}-${BIT_NUMBER.slice(3)}`;
-      uploadBox.style.display = "block";
+      infoBox.innerHTML = `
+        <div class="payment-row">
+          <div class="payment-text">📲 מספר לתשלום בביט: <span style="margin-right:10px;">050-6205953</span></div>
+          <button type="button" class="copy-btn" onclick="copyToClipboard('${BIT_NUMBER}', this)">העתק</button>
+        </div>
+      `;
+      infoBox.style.display = "block";
 
       openBtn.style.display = "block";
       openBtn.className = "btn pay bit";
       openBtn.innerText = "פתח ביט לתשלום";
       openBtn.onclick = openBitPayment;
 
-    } else if (val === "פייבוקס") {
-      txt = `📲 מספר לתשלום בפייבוקס: ${PAYBOX_NUMBER.slice(0,3)}-${PAYBOX_NUMBER.slice(3)}`;
       uploadBox.style.display = "block";
+    }
+
+    else if (val === "פייבוקס") {
+      infoBox.innerHTML = `
+        <div class="payment-row">
+          <div class="payment-text">📲 מספר לתשלום בפייבוקס: <span style="margin-right:10px;">054-2296540</span></div>
+          <button type="button" class="copy-btn" onclick="copyToClipboard('${PAYBOX_NUMBER}', this)">העתק</button>
+        </div>
+      `;
+      infoBox.style.display = "block";
 
       openBtn.style.display = "block";
       openBtn.className = "btn pay paybox";
       openBtn.innerText = "פתח פייבוקס לתשלום";
       openBtn.onclick = openPayBoxPayment;
 
-    } else if (val === "מזומן") {
-      txt = "💵 תשלום אצל משפחת טי";
-      uploadBox.style.display = "none";
-      openBtn.style.display = "none";
+      uploadBox.style.display = "block";
     }
 
-    infoBox.innerText = txt;
-    infoBox.style.display = "block";
+    else if (val === "מזומן") {
+      infoBox.innerHTML = `<div>💵 תשלום אצל משפחת טי (באיסוף)</div>`;
+      infoBox.style.display = "block";
+
+      openBtn.style.display = "none";
+      uploadBox.style.display = "none";
+    }
   });
 });
 </script>
-
 </body>
 </html>
