@@ -1,6 +1,490 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+  <meta charset="UTF-8">
+  <title>וופל בלגי על מקל | הזמנה</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --waffle-color:#ff9f47;
+      --waffle-bg:#fff4e4;
+      --main-font:'Heebo',sans-serif;
+      --dark-brown:#4a2c1b;
+    }
+
+    body{font-family:var(--main-font);background:#ffe9d1;margin:0;padding:0;direction:rtl;}
+    .box{max-width:600px;margin:20px auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.1);}
+    .title{font-size:36px;font-weight:700;text-align:center;margin:20px 0 10px;color:#4a2c1b;}
+    .price{text-align:center;font-size:20px;margin-bottom:15px;color:#884a22;}
+
+    .phone-link-container{text-align:center;margin-bottom:25px;}
+    .phone-link{
+      color:#4a2c1b;font-weight:700;text-decoration:none;border:1px solid #ff9f47;
+      padding:8px 15px;border-radius:8px;background:#fff3e6;display:inline-block;transition:.2s;
+    }
+    .phone-link:hover{background:var(--waffle-color);color:#fff;}
+
+    label{font-weight:700;margin-top:20px;display:block;color:#333;}
+    input:not([type="radio"]):not([type="checkbox"]), textarea{
+      width:100%;padding:12px;margin-top:5px;border-radius:8px;border:1px solid #ddd;box-sizing:border-box;
+    }
+    input[type="time"]{max-width:150px;}
+
+    .waffle-box{background:var(--waffle-bg);padding:18px;border-radius:12px;margin-top:20px;border:1px solid #ff9f4730;}
+    .waffle-box b{font-size:18px;color:#4a2c1b;display:block;margin-bottom:5px;}
+
+    .waffle-box input[type="checkbox"]{display:none;}
+    .waffle-box input[type="checkbox"] + label{
+      background:#f7f7f7;padding:8px 15px;border-radius:20px;border:1px solid #ddd;
+      display:inline-block;margin-left:5px;margin-bottom:10px;cursor:pointer;transition:.2s;font-size:15px;font-weight:500;
+    }
+    .waffle-box input[type="checkbox"]:checked + label{
+      background:var(--waffle-color);color:#fff;border-color:var(--waffle-color);
+      box-shadow:0 2px 4px #0003;transform:scale(1.05);
+    }
+
+    .topping-group{margin:15px 0;font-weight:400;border-top:1px dashed #ff9f4760;padding-top:10px;}
+    .topping-group:first-child{border-top:none;padding-top:0;}
+
+    .payment-selection-group{margin-top:10px;}
+    .payment-selection-group input[type="radio"]{display:none;}
+    .payment-selection-group input[type="radio"] + label{
+      background:#f7f7f7;padding:10px 18px;border-radius:25px;border:1px solid #ddd;
+      display:inline-block;margin-left:10px;margin-bottom:10px;cursor:pointer;transition:.2s;font-size:16px;font-weight:500;
+    }
+    .payment-selection-group input[type="radio"]:checked + label{
+      background:var(--waffle-color);color:#fff;border-color:var(--waffle-color);box-shadow:0 2px 4px #0003;transform:scale(1.05);
+    }
+
+    .btn{
+      width:100%;background:var(--waffle-color);padding:16px;border-radius:10px;color:#fff;font-weight:700;font-size:19px;
+      border:none;margin-top:30px;cursor:pointer;box-shadow:0 4px 6px rgba(255,159,71,.4);transition:.2s;
+    }
+    .btn.secondary{background:#ccc;margin-top:10px;color:#222;box-shadow:none;}
+    .btn.pay{margin-top:10px;font-size:16px;padding:12px;}
+    .btn.pay.bit{background:#2b5cff;}
+    .btn.pay.paybox{background:#00bfa5;}
+
+    .total-display{
+      margin-top:15px;font-weight:700;font-size:22px;padding:10px;border-radius:8px;background:#fff3e6;
+      color:#4a2c1b;text-align:center;
+    }
+
+    .payment-section-hidden{display:none !important;}
+    .payment-info{
+      background:#fff3c4;padding:12px;border-radius:10px;margin-top:10px;display:none;font-weight:700;color:#d67a00;
+      border-left:5px solid var(--waffle-color);
+    }
+
+    .required-star{color:red;font-size:14px;margin-right:5px;}
+    .error-border{border:2px solid red !important;}
+    .error-text{color:red;font-size:12px;margin-top:-5px;display:none;}
+
+    .receipt-box{
+      display:none;margin-top:12px;background:#eafff0;border:1px solid #b8f3cc;padding:10px;border-radius:10px;font-weight:700;text-align:center;
+    }
+    .receipt-box a{
+      display:inline-block;margin-top:8px;background:#25D366;color:#fff;padding:10px 12px;border-radius:10px;text-decoration:none;
+    }
+
+    .site-note{
+      margin-top:25px;
+      padding-top:15px;
+      border-top:2px dashed #ff9f4760;
+      text-align:center;
+      font-weight:700;
+      color:#4a2c1b;
+      font-size:15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <div class="title">וופל בלגי על מקל 🧇</div>
+  <div class="price">מחיר בסיס: 7 ש"ח לוופל</div>
+
+  <div class="phone-link-container">
+    <a href="tel:972542296540" class="phone-link">📞 התקשרו אלינו: 054-2296540</a>
+  </div>
+
+  <label for="name">שם: <span class="required-star">*</span></label>
+  <input id="name" required>
+  <div id="error-name" class="error-text">שדה חובה</div>
+
+  <label for="phone">טלפון: <span class="required-star">*</span></label>
+  <input id="phone" type="tel" required>
+  <div id="error-phone" class="error-text">שדה חובה</div>
+
+  <label for="time">שעה רצויה לאיסוף:</label>
+  <input id="time" type="time">
+
+  <hr style="margin:25px 0;border:0;border-top:2px dashed #ff9f4760;">
+
+  <label for="qty">כמות וופלים:</label>
+  <input id="qty" type="number" min="0" value="0">
+  <div id="error-qty" class="error-text">אם הכמות 0, יש למלא הערות כלליות.</div>
+
+  <div id="total" class="total-display">סה"כ: 0 ש"ח</div>
+
+  <div id="waffles"></div>
+
+  <div id="payment-section" class="payment-options-container payment-section-hidden">
+    <label>אמצעי תשלום: <span class="required-star">*</span></label>
+
+    <div id="payment-options" class="payment-selection-group">
+      <input type="radio" name="pay" value="ביט" id="pay_bit"><label for="pay_bit"> 📲 ביט</label>
+      <input type="radio" name="pay" value="פייבוקס" id="pay_fb"><label for="pay_fb"> 📱 פייבוקס</label>
+      <input type="radio" name="pay" value="מזומן" id="pay_cash"><label for="pay_cash"> 💵 מזומן</label>
+    </div>
+    <div id="error-pay" class="error-text">נא לבחור אמצעי תשלום</div>
+
+    <div id="paymentInfo" class="payment-info"></div>
+
+    <!-- כפתור פתיחה לתשלום (משתנה לפי בחירה) -->
+    <button id="openPayBtn" class="btn pay" style="display:none;" type="button">פתח לתשלום</button>
+
+    <div id="paymentUploadInfo" style="display:none;margin-top:10px;font-weight:700;color:#4a2c1b;">
+      חשוב: אחרי התשלום, חזור לשיחה וצרף צילום מסך/קבלה בווטסאפ.
+    </div>
+  </div>
+
+  <label for="notes">הערות (חובה למלא אם הכמות 0):</label>
+  <textarea id="notes" placeholder="כאן ניתן להוסיף הערות כלליות להזמנה..."></textarea>
+
+  <button id="sendBtn" class="btn" onclick="sendUnifiedOrder()">שליחת הזמנה לוואטסאפ</button>
+  <button class="btn secondary" type="button" onclick="resetForm()">איפוס טופס</button>
+
+  <div id="receiptBox" class="receipt-box">
+    כדי לשלוח קבלה ללקוח לחץ כאן:
+    <br>
+    <a id="receiptLink" href="#" target="_blank">שלח קבלה ללקוח</a>
+  </div>
+
+  <!-- הכוכבית באתר (לא בהודעת ווטסאפ) -->
+  <div class="site-note">
+    ⭐ כדי שההזמנה תיקלט – חייבים לסיים את השליחה בווטסאפ (ללחוץ על “שלח”)
+  </div>
+</div>
+
+<script>
+const PRICE = 7;
+
+// מספר הוואטסאפ של מי שמרכז את ההזמנות
+const MY_PHONE_NUMBER = "972542296540";
+
+// מספרים לתשלום
+const BIT_NUMBER = "0506205953";
+const PAYBOX_NUMBER = "0542296540";
+
+function toWaNumber(phone) {
+  let d = (phone || "").replace(/\D/g, "");
+  if (d.startsWith("972")) return d;
+  if (d.startsWith("0")) return "972" + d.slice(1);
+  if (d.length === 9 && d.startsWith("5")) return "972" + d;
+  return d;
+}
+
+function generateOrderId() {
+  const now = new Date();
+  const datePart = now.getFullYear().toString().slice(2) +
+    (now.getMonth() + 1).toString().padStart(2, '0') +
+    now.getDate().toString().padStart(2, '0');
+  const timePart = now.getHours().toString().padStart(2, '0') +
+    now.getMinutes().toString().padStart(2, '0') +
+    now.getSeconds().toString().padStart(2, '0');
+  return `WAFFLE-${datePart}-${timePart}`;
+}
+
+function waLink(phoneNumber, text) {
+  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+}
+
+/* ניסיון לפתוח אפליקציות תשלום (אם קיים בטלפון) */
+function openBitPayment(){ window.location.href = "bit://"; }
+function openPayBoxPayment(){ window.location.href = "paybox://"; }
+
+function updateWaffles() {
+  const qtyInput = document.getElementById("qty");
+  let qty = Number(qtyInput.value);
+  const paymentSection = document.getElementById("payment-section");
+
+  if (qty < 0 || isNaN(qty)) { qty = 0; qtyInput.value = 0; }
+
+  document.getElementById("total").innerText = `סה"כ: ${qty * PRICE} ש"ח`;
+
+  if (qty > 0) {
+    paymentSection.classList.remove("payment-section-hidden");
+  } else {
+    paymentSection.classList.add("payment-section-hidden");
+    document.getElementById("paymentInfo").style.display = "none";
+    document.getElementById("paymentUploadInfo").style.display = "none";
+    document.getElementById("openPayBtn").style.display = "none";
+    document.querySelectorAll('input[name="pay"]').forEach(r => r.checked = false);
+  }
+
+  let html = "";
+  for (let i = 1; i <= qty; i++) {
+    html += `
+      <div class="waffle-box">
+        <b>🧇 וופל #${i}</b>
+
+        <div class="topping-group">
+          <label>רטבים:</label>
+          <input type="checkbox" id="sauce_choc_${i}" name="sauce_${i}" value="שוקולד"><label for="sauce_choc_${i}">🍫 שוקולד</label>
+          <input type="checkbox" id="sauce_maple_${i}" name="sauce_${i}" value="מייפל"><label for="sauce_maple_${i}">🥞 מייפל</label>
+          <input type="checkbox" id="sauce_milk_${i}" name="sauce_${i}" value="ריבת חלב"><label for="sauce_milk_${i}">🥛 ריבת חלב</label>
+        </div>
+
+        <div class="topping-group">
+          <label>תוספות:</label>
+          <input type="checkbox" id="top_oreo_${i}" name="top_${i}" value="אוראו"><label for="top_oreo_${i}">⚫ אוראו</label>
+          <input type="checkbox" id="top_lotus_${i}" name="top_${i}" value="לוטוס"><label for="top_lotus_${i}">🍪 לוטוס</label>
+          <input type="checkbox" id="top_click_${i}" name="top_${i}" value="קליק"><label for="top_click_${i}">✨ קליק</label>
+          <input type="checkbox" id="top_lentils_${i}" name="top_${i}" value="עדשים"><label for="top_lentils_${i}">🟢 עדשים</label>
+        </div>
+
+        <div class="topping-group">
+          <label>מעל:</label>
+          <input type="checkbox" id="extra_cream_${i}" name="extra_${i}" value="קצפת"><label for="extra_cream_${i}">🍦 קצפת</label>
+          <input type="checkbox" id="extra_sug_${i}" name="extra_${i}" value="סוכריות"><label for="extra_sug_${i}">🍬 סוכריות</label>
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("waffles").innerHTML = html;
+}
+
+document.getElementById("qty").addEventListener("input", updateWaffles);
+document.addEventListener("DOMContentLoaded", updateWaffles);
+
+function resetForm() {
+  if (confirm("האם אתה בטוח שברצונך לאפס את כל פרטי הטופס?")) {
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("qty").value = 0;
+    document.getElementById("notes").value = "";
+
+    document.querySelectorAll('input[name="pay"]').forEach(r => r.checked = false);
+
+    document.getElementById("paymentInfo").style.display = "none";
+    document.getElementById("paymentUploadInfo").style.display = "none";
+    document.getElementById("openPayBtn").style.display = "none";
+    document.getElementById("receiptBox").style.display = "none";
+
+    document.querySelectorAll('.error-text').forEach(el => el.style.display = "none");
+    document.querySelectorAll('input, textarea, #payment-options').forEach(el => el.classList.remove("error-border"));
+
+    updateWaffles();
+  }
+}
+
+function validateField(id, errorTextId, validationFn, errorMessage) {
+  const input = document.getElementById(id);
+  const errorEl = document.getElementById(errorTextId);
+  const ok = validationFn(input.value);
+
+  if (!ok) {
+    input.classList.add("error-border");
+    errorEl.innerText = errorMessage;
+    errorEl.style.display = "block";
+  } else {
+    input.classList.remove("error-border");
+    errorEl.style.display = "none";
+  }
+  return ok;
+}
+
+function sendUnifiedOrder() {
+  const sendBtn = document.getElementById('sendBtn');
+  if (sendBtn.disabled) return;
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const time = document.getElementById("time").value.trim();
+  const pay = document.querySelector('input[name="pay"]:checked');
+  const qty = Number(document.getElementById("qty").value);
+  const notes = document.getElementById("notes").value.trim();
+
+  let isFormValid = true;
+
+  if (!validateField("name", "error-name", v => v.length > 0, "נא למלא את השם.")) isFormValid = false;
+  if (!validateField("phone", "error-phone", v => v.replace(/\D/g, "").length >= 7, "נא למלא טלפון תקין (מינימום 7 ספרות).")) isFormValid = false;
+
+  if (qty === 0 && notes.length === 0) {
+    document.getElementById("qty").classList.add("error-border");
+    document.getElementById("error-qty").innerText = "אם הכמות 0, יש למלא הערות כלליות (למשל, לתיאום שעה/בירור).";
+    document.getElementById("error-qty").style.display = "block";
+    document.getElementById("notes").classList.add("error-border");
+    isFormValid = false;
+  } else {
+    document.getElementById("qty").classList.remove("error-border");
+    document.getElementById("error-qty").style.display = "none";
+    document.getElementById("notes").classList.remove("error-border");
+  }
+
+  const errorPayEl = document.getElementById("error-pay");
+  const paymentOptionsEl = document.getElementById("payment-options");
+
+  if (qty > 0 && !pay) {
+    paymentOptionsEl.classList.add("error-border");
+    errorPayEl.style.display = "block";
+    isFormValid = false;
+  } else {
+    paymentOptionsEl.classList.remove("error-border");
+    errorPayEl.style.display = "none";
+  }
+
+  if (!isFormValid) {
+    alert("נא לתקן את השדות המסומנים באדום לפני השליחה.");
+    return;
+  }
+
+  sendBtn.disabled = true;
+  sendBtn.innerText = "פותח ווטסאפ...";
+
+  const orderId = generateOrderId();
+  const totalPrice = qty * PRICE;
+  const paymentStatus = pay ? pay.value : 'לא רלוונטי (כמות 0)';
+
+  const orderDetails = {
+    orderId,
+    customerName: name,
+    customerPhone: phone,
+    pickupTime: time || 'לא צוין',
+    quantity: qty,
+    totalPrice,
+    paymentMethod: paymentStatus,
+    notes,
+    waffles: []
+  };
+
+  for (let i = 1; i <= qty; i++) {
+    const sauces = [...document.querySelectorAll(`input[name="sauce_${i}"]:checked`)].map(x => x.value);
+    const tops   = [...document.querySelectorAll(`input[name="top_${i}"]:checked`)].map(x => x.value);
+    const extras = [...document.querySelectorAll(`input[name="extra_${i}"]:checked`)].map(x => x.value);
+
+    orderDetails.waffles.push({
+      id: i,
+      sauces: sauces.join(", ") || "ללא רטבים",
+      toppings: tops.join(", ") || "ללא תוספות",
+      extras: extras.join(", ") || "ללא פיניש"
+    });
+  }
+
+  let orderMsg =
+    `[ORDER_ID: ${orderDetails.orderId}]\n` +
+    `*🔔 הזמנה חדשה (וופל בלגי) 🔔*\n` +
+    "==============================\n" +
+    `*קוד הזמנה*: ${orderDetails.orderId}\n` +
+    `*פרטי לקוח:*\n` +
+    `*שם*: ${orderDetails.customerName}\n` +
+    `*טלפון*: ${orderDetails.customerPhone}\n` +
+    `*שעה רצויה לאיסוף*: ${orderDetails.pickupTime}\n` +
+    `*כמות*: ${orderDetails.quantity}\n` +
+    `*סה\"כ לתשלום*: ${orderDetails.totalPrice} ש\"ח\n` +
+    `*אמצעי תשלום*: ${orderDetails.paymentMethod}\n` +
+    "==============================\n" +
+    "*פירוט ההזמנה:*\n";
+
+  if (orderDetails.quantity === 0) {
+    orderMsg += `*אין וופלים בהזמנה זו.* (פנייה כללית).\n`;
+  } else {
+    orderDetails.waffles.forEach(w => {
+      orderMsg +=
+        `\n*וופל #${w.id}*:\n` +
+        `רטבים: ${w.sauces}\n` +
+        `תוספות: ${w.toppings}\n` +
+        `פיניש: ${w.extras}\n`;
+    });
+  }
+
+  if (orderDetails.notes) orderMsg += `\n*הערות כלליות*: ${orderDetails.notes}\n`;
+
+  orderMsg +=
+    "\n==============================\n" +
+    `${pay && pay.value !== "מזומן" ? '🔴 *הערה לתשלום:* הלקוח מתבקש לצרף אישור תשלום.\n' : ''}`;
+
+  window.open(waLink(MY_PHONE_NUMBER, orderMsg), "_blank");
+
+  // קבלה ללקוח
+  const customerWa = toWaNumber(orderDetails.customerPhone);
+
+  let receiptMsg =
+    `✅ קבלה - וופל בלגי על מקל\n\n` +
+    `*קוד הזמנה*: ${orderDetails.orderId}\n` +
+    `*סה\"כ*: ${orderDetails.totalPrice} ש\"ח\n` +
+    `*אמצעי תשלום*: ${orderDetails.paymentMethod}\n` +
+    `*שעה*: ${orderDetails.pickupTime}\n\n` +
+    `*פירוט:*\n`;
+
+  if (orderDetails.quantity === 0) {
+    receiptMsg += `אין פירוט וופלים (פנייה כללית).\n`;
+  } else {
+    receiptMsg += orderDetails.waffles.map(w =>
+      `\n*וופל #${w.id}*\n` +
+      `רטבים: ${w.sauces}\n` +
+      `תוספות: ${w.toppings}\n` +
+      `פיניש: ${w.extras}\n`
+    ).join("");
+  }
+
+  document.getElementById("receiptLink").href = waLink(customerWa, receiptMsg);
+  document.getElementById("receiptBox").style.display = "block";
+
+  setTimeout(() => {
+    sendBtn.disabled = false;
+    sendBtn.innerText = "שליחת הזמנה לוואטסאפ";
+  }, 1200);
+}
+
+// הצגת מספרי תשלום + כפתור “פתח לתשלום”
+document.querySelectorAll('input[name="pay"]').forEach(r => {
+  r.addEventListener("change", () => {
+    const val = r.value;
+    const infoBox = document.getElementById("paymentInfo");
+    const uploadBox = document.getElementById("paymentUploadInfo");
+    const openBtn = document.getElementById("openPayBtn");
+
+    let txt = "";
+
+    if (val === "ביט") {
+      txt = `📲 מספר לתשלום בביט: ${BIT_NUMBER.slice(0,3)}-${BIT_NUMBER.slice(3)}`;
+      uploadBox.style.display = "block";
+
+      openBtn.style.display = "block";
+      openBtn.className = "btn pay bit";
+      openBtn.innerText = "פתח ביט לתשלום";
+      openBtn.onclick = openBitPayment;
+
+    } else if (val === "פייבוקס") {
+      txt = `📲 מספר לתשלום בפייבוקס: ${PAYBOX_NUMBER.slice(0,3)}-${PAYBOX_NUMBER.slice(3)}`;
+      uploadBox.style.display = "block";
+
+      openBtn.style.display = "block";
+      openBtn.className = "btn pay paybox";
+      openBtn.innerText = "פתח פייבוקס לתשלום";
+      openBtn.onclick = openPayBoxPayment;
+
+    } else if (val === "מזומן") {
+      txt = "💵 תשלום אצל משפחת טי";
+      uploadBox.style.display = "none";
+      openBtn.style.display = "none";
+    }
+
+    infoBox.innerText = txt;
+    infoBox.style.display = "block";
+  });
+});
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
     <meta charset="UTF-8">
     <title>וופל בלגי על מקל | הזמנה</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -483,4 +967,5 @@ document.querySelectorAll('input[name="pay"]').forEach(r => {
 </script>
 
 </body>
+
 </html>
